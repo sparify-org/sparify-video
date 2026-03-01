@@ -29,6 +29,10 @@
       overflow:hidden;
     }
 
+    .container{
+      position:relative;
+    }
+
     .video-wrapper{
       width:min(90vw, 420px);
       aspect-ratio:9/16;
@@ -45,6 +49,26 @@
       display:block;
     }
 
+    .sound-btn{
+      position:absolute;
+      bottom:16px;
+      right:16px;
+      background:rgba(255,255,255,.85);
+      backdrop-filter:blur(10px);
+      border:1px solid rgba(0,177,183,.3);
+      color:#00B1B7;
+      font-weight:700;
+      padding:10px 14px;
+      border-radius:999px;
+      cursor:pointer;
+      transition:all .2s ease;
+    }
+
+    .sound-btn:hover{
+      background:#00B1B7;
+      color:#fff;
+    }
+
     @media (max-width:600px){
       .video-wrapper{
         width:92vw;
@@ -55,11 +79,33 @@
 
 <body>
 
-  <div class="video-wrapper">
-    <video autoplay muted loop playsinline preload="metadata">
-      <source src="https://bejlqwebcujfklavoecm.supabase.co/storage/v1/object/public/video/reel.mp4" type="video/mp4">
-    </video>
+  <div class="container">
+    <div class="video-wrapper">
+      <video id="video" autoplay muted loop playsinline preload="metadata">
+        <source src="https://bejlqwebcujfklavoecm.supabase.co/storage/v1/object/public/video/reel.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <button class="sound-btn" onclick="toggleSound()" id="soundBtn">
+      🔊 Ton
+    </button>
   </div>
+
+  <script>
+    const video = document.getElementById("video");
+    const btn = document.getElementById("soundBtn");
+
+    function toggleSound(){
+      video.muted = !video.muted;
+
+      if(!video.muted){
+        video.play();
+        btn.textContent = "🔇 Stumm";
+      } else {
+        btn.textContent = "🔊 Ton";
+      }
+    }
+  </script>
 
 </body>
 </html>
